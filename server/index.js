@@ -52,10 +52,9 @@ const countrySchema = new mongoose.Schema({
   city: String
 });
 
-// Define a model for the countries collection
+
 const Country = mongoose.model("Country", countrySchema);
 
-// Fetch countries from the database and send as a response
 app.get("/countries", async (req, res) => {
   try {
     const countries = await Country.find({});

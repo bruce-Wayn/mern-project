@@ -17,7 +17,7 @@ const FormA = () => {
   const [cityOptions, setCityOptions] = useState([]);
 
   useEffect(() => {
-    // Fetch country options from the database
+   
     axios.get("http://localhost:4000/countries").then((response) => {
       setCountryOptions(response.data);
     });
@@ -25,10 +25,9 @@ const FormA = () => {
 
   const handleCountryChange = (e) => {
     setCountry(e.target.value);
-    setState(""); // Reset state value when country changes
-    setCity(""); // Reset city value when country changes
+    setState(""); 
+    setCity(""); 
 
-    // Fetch state options for the selected country
     axios.get("http://localhost:4000/countries").then((response) => {
       setStateOptions(response.data);
     });
@@ -36,9 +35,9 @@ const FormA = () => {
 
   const handleStateChange = (e) => {
     setState(e.target.value);
-    setCity(""); // Reset city value when state changes
+    setCity(""); 
 
-    // Fetch city options for the selected state
+    
     axios.get("http://localhost:4000/countries").then((response) => {
       setCityOptions(response.data);
     });
@@ -47,12 +46,11 @@ const FormA = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Form validation
+    
     if (!validateForm()) {
       return;
     }
 
-    // Submit form data to the server
     axios
       .post("http://localhost:4000/setUsers", {
         firstName,
@@ -68,7 +66,7 @@ const FormA = () => {
       .then(() => {
         alert("User created!");
         resetForm();
-        window.location.reload(); // Refresh the page
+        window.location.reload(); 
       })
       .catch((error) => {
         console.log(error);
@@ -76,7 +74,7 @@ const FormA = () => {
   };
 
   useEffect(() => {
-    // Calculate age based on date of birth
+    
     if (dateOfBirth) {
       const currentDate = new Date();
       const birthDate = new Date(dateOfBirth);
@@ -99,49 +97,46 @@ const FormA = () => {
   };
 
   const validateForm = () => {
-    // Validate first name
+    
     if (firstName.trim() === "") {
       alert("Please enter a valid first name.");
       return false;
     }
 
-    // Validate last name
+    
     if (lastName.trim() === "") {
       alert("Please enter a valid last name.");
       return false;
     }
 
-    // Validate email
+    
     if (!validateEmail(email)) {
       alert("Please enter a valid email address.");
       return false;
     }
 
-    // Validate country
     if (country.trim() === "") {
       alert("Please select a valid country.");
       return false;
     }
 
-    // Validate state
+    
     if (state.trim() === "") {
       alert("Please select a valid state.");
       return false;
     }
 
-    // Validate city
+    
     if (city.trim() === "") {
       alert("Please select a valid city.");
       return false;
     }
 
-    // Validate gender
-    if (gender === "") {
+       if (gender === "") {
       alert("Please select a valid gender.");
       return false;
     }
 
-    // Validate date of birth
     if (!validateDateOfBirth(dateOfBirth)) {
       alert("Please enter a valid date of birth (minimum age is 14).");
       return false;
@@ -151,7 +146,7 @@ const FormA = () => {
   };
 
   const validateEmail = (email) => {
-    // Simple email validation regex
+    
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
@@ -160,7 +155,7 @@ const FormA = () => {
     const currentDate = new Date();
     const inputDate = new Date(date);
 
-    // Check if the input date is at least 14 years ago
+    
     return currentDate.getFullYear() - inputDate.getFullYear() >= 14;
   };
 
